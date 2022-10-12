@@ -26,7 +26,7 @@ defmodule CardsGame.Structs.Deck do
       end
 
     %CardsGame.Structs.Deck{
-      cards: cards
+      cards: Enum.shuffle(cards)
     }
   end
 end

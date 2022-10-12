@@ -1,5 +1,5 @@
 defmodule CardsGame.Structs.Player do
-  @max_life 10
+  @max_life 25
   @required_keys [:life, :name]
 
   @enforce_keys @required_keys
