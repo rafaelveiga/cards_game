@@ -19,4 +19,6 @@ defmodule CardsGame.GameState do
   def update(key, value) do
     Agent.update(__MODULE__, &Map.put(&1, key, value))
   end
+
+  def get_key(key), do: Map.get(info(), key)
 end

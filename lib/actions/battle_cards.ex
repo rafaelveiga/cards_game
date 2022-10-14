@@ -8,6 +8,17 @@ defmodule CardsGame.Actions.BattleCards do
     compare_cards(player_card, computer_card)
   end
 
+  def update_game_state(loser) do
+    GameState.update(
+      loser,
+      Map.put(
+        GameState.get_key(loser),
+        :life,
+        GameState.get_key(loser).life - 1
+      )
+    )
+  end
+
   def draw_card() do
     {card, new_deck} =
       GameState.info()
@@ -24,7 +35,12 @@ defmodule CardsGame.Actions.BattleCards do
     player_card = parse_card(player_card)
     computer_card = parse_card(computer_card)
 
-    compare_numbers(map_to_integer(hd(player_card)), map_to_integer(hd(computer_card)))
+    result = compare_numbers(map_to_integer(hd(player_card)), map_to_integer(hd(computer_card)))
+
+    case result do
+      {:player} -> update_game_state(:computer)
+      {:computer} -> update_game_state(:player)
+    end
   end
 
   def parse_card(card) do
