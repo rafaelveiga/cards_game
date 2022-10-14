@@ -35,11 +35,20 @@ defmodule CardsGame.Actions.BattleCards do
     player_card = parse_card(player_card)
     computer_card = parse_card(computer_card)
 
-    result = compare_numbers(map_to_integer(hd(player_card)), map_to_integer(hd(computer_card)))
+    result =
+      compare_numbers(
+        player_card
+        |> hd()
+        |> map_to_integer(),
+        computer_card
+        |> hd()
+        |> map_to_integer()
+      )
 
     case result do
       {:player} -> update_game_state(:computer)
       {:computer} -> update_game_state(:player)
+      {:draw} -> "Draw"
     end
   end
 
